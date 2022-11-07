@@ -1,5 +1,8 @@
 _base_ = ['../../_base_/default_runtime.py']
 
+# use pretrain model
+load_from = 'pretrain/litehrnet18_coco_384x288-8d4dac48_20211230.pth'
+
 # runtime
 train_cfg = dict(max_epochs=50, val_interval=10)
 
