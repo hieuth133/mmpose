@@ -4,12 +4,12 @@ _base_ = ['../../_base_/default_runtime.py']
 load_from = 'pretrain/litehrnet18_coco_384x288-8d4dac48_20211230.pth'
 
 # runtime
-train_cfg = dict(max_epochs=50, val_interval=10)
+train_cfg = dict(max_epochs=100, val_interval=10)
 
 # optimizer
 optim_wrapper = dict(optimizer=dict(
     type='Adam',
-    lr=5e-4,
+    lr=1e-4,
 ))
 
 # learning policy
@@ -28,7 +28,7 @@ param_scheduler = [
 
 # automatically scaling LR based on the actual training batch size
 # base_batch_size = num_gpu * batch_size 
-auto_scale_lr = dict(base_batch_size=32)
+auto_scale_lr = dict(base_batch_size=64)
 
 # hooks
 default_hooks = dict(checkpoint=dict(save_best='coco/AP',
@@ -108,7 +108,7 @@ val_pipeline = [
 
 # data loaders
 train_dataloader = dict(
-    batch_size=32,
+    batch_size=64,
     num_workers=2,
     persistent_workers=True,
     sampler=dict(type='DefaultSampler', shuffle=True),
@@ -121,7 +121,7 @@ train_dataloader = dict(
         pipeline=train_pipeline,
     ))
 val_dataloader = dict(
-    batch_size=32,
+    batch_size=64,
     num_workers=2,
     persistent_workers=True,
     drop_last=False,
